@@ -4,10 +4,6 @@ import math
 K = 3
 TOTAL_NUMBER_OF_DATA = 150
 centroids = []
-yeks=[]
-dos =[]
-ses =[]
-chars = []
 
 clusters = []
 def load_data():
@@ -17,12 +13,6 @@ def load_data():
         content = file.readlines()
         for line in content:
             line = line.split()
-            '''
-            yeks.append(line[0])
-            dos.append(line[1])
-            ses.append(line[2])
-            chars.append(line[3])
-    '''
             input_data.append([line[0],line[1],line[2],line[3]])
             output_data.append(line[4])
         return (input_data , output_data)
@@ -82,12 +72,10 @@ class Centroid:
         return self.d
 
 def initialize_centroids():
-    #print("Centroids initialized at:")
     for k in range(K):
         c1 = Centroid(random.uniform(4,8) , random.uniform(1.5,4.5) , random.uniform(0.5,7) ,random.uniform(0,3))
         centroids.append(c1)
         clusters.append(0)
-        #print("(" , c1.get_a() , " , " , c1.get_b() , " , " , c1.get_c() , " , " , c1.get_d() , ")")
     return
 
 
@@ -128,6 +116,7 @@ def show_results():
         if(number - 50 > 0):
             miss_classified_data += number - 50
     print('Accuracy : ' , 100-((miss_classified_data/150.0)*100) , '%')
+
 def calculate_entropy():
     global clusters
     entropy =0
@@ -135,12 +124,14 @@ def calculate_entropy():
         if number != 0:
             entropy += (number/150.0)*math.log(number/150.0)
     print("Entropy: ",entropy)
+
 def kmean():
     initialize_centroids()
     calculate_centroids()
     #show_centroids()
     show_results()
     calculate_entropy()
+
 kmean()
 
 
